@@ -37,11 +37,13 @@ export interface ConstShip {
   api_soku: ShipSpeed // 速力
   api_luck: [number, number] // 運
   api_leng: ShipRange // 射程
+  api_slot_num: number // スロット数
   api_maxeq: number[] // 艦載機搭載数
 }
 
 export interface ConstEquip {
   api_name: string
+  api_type: number[]
 }
 
 export interface InfoBasic {
@@ -73,8 +75,8 @@ export interface InfoShip extends InfoShipShip {
 
 export interface InfoEquip {
   api_slotitem_id: number // 装備ID
-  api_level: number // 改修Level
-  api_alv: number // 艦載機熟練度
+  api_level?: number // 改修Level
+  api_alv?: number // 艦載機熟練度
 }
 
 export interface InfoFleet {

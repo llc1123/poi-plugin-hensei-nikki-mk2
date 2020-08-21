@@ -12,7 +12,7 @@ import {
   InfoShip,
 } from '../types/global-store.types'
 import * as View from '../types/view.types'
-import { getValueByLevel } from './calc'
+import { EquipAerialType, getEquipAerialType, getValueByLevel } from './calc'
 
 export const stateSelector = (state: GlobalStore): GlobalStore => state
 export const basicSelector = (state: GlobalStore): InfoBasic => state.info.basic
@@ -60,22 +60,35 @@ export const $equipSelectorFactory = memoize(($equipId: number) =>
   createSelector([$equipsSelector], ($equips) => $equips[$equipId]),
 )
 
+export const infoEquipToViewEquipSelectorFactory = memoize(
+  (equip: InfoEquip, idx: number, $ship: ConstShip) => (
+    state: GlobalStore,
+  ): View.Equip => {
+    const $equip = $equipSelectorFactory(equip.api_slotitem_id)(state)
+    const iconId = $equip.api_type[3]
+    const aerialType = getEquipAerialType(iconId)
+    const count =
+      aerialType === EquipAerialType.NonAerial
+        ? -1
+        : aerialType === EquipAerialType.FlyingBoat
+        ? 1
+        : $ship.api_maxeq[idx]
+    return {
+      id: equip.api_slotitem_id,
+      iconId,
+      name: $equip.api_name,
+      count,
+      mastery: equip.api_alv || 0,
+      enhance: equip.api_level || 0,
+    }
+  },
+)
+
 export const shipInfoSelectorFactory = memoize(
   (ship: View.ShipEquipData) => (state: GlobalStore): View.Ship => {
     const $shipId = ship.api_ship_id
     const $ship = $shipSelectorFactory($shipId)(state)
     const dbShip = dbShipSelectorFactory($shipId)(state)
-
-    const convInfoEquipToViewEquip = (
-      equip: InfoEquip,
-      idx: number,
-    ): View.Equip => ({
-      id: equip.api_slotitem_id,
-      name: $equipSelectorFactory(equip.api_slotitem_id)(state).api_name,
-      count: idx === -1 ? 1 : $ship.api_maxeq[idx],
-      mastery: equip.api_alv,
-      enhance: equip.api_level,
-    })
 
     return {
       id: $shipId,
@@ -112,11 +125,19 @@ export const shipInfoSelectorFactory = memoize(
         range: [$ship.api_leng, ship.api_leng],
         airSupremacy: 0,
       },
-      equip: ship.api_slot.map((equip, idx) =>
-        equip ? convInfoEquipToViewEquip(equip, idx) : null,
-      ),
+      equip: ship.api_slot
+        .filter((_, idx) => idx < $ship.api_slot_num)
+        .map((equip, idx) =>
+          equip
+            ? infoEquipToViewEquipSelectorFactory(equip, idx, $ship)(state)
+            : null,
+        ),
       equipx: ship.api_slot_ex
-        ? convInfoEquipToViewEquip(ship.api_slot_ex, -1)
+        ? infoEquipToViewEquipSelectorFactory(
+            ship.api_slot_ex,
+            -1,
+            $ship,
+          )(state)
         : null,
     }
   },

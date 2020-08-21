@@ -30,6 +30,7 @@ export interface Ship {
 
 export interface Equip {
   id: number
+  iconId: number
   name: string
   count: number
   mastery: number
