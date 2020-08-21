@@ -5,11 +5,17 @@ export interface GlobalStore {
     $ships: {
       [key: number]: ConstShip
     }
+    $equips: {
+      [key: number]: ConstEquip
+    }
   }
   info: {
     basic: InfoBasic
     ships: {
       [key: number]: InfoShip
+    }
+    equips: {
+      [key: number]: InfoEquip
     }
     fleets: InfoFleet[]
     airbase: InfoAirbase[]
@@ -22,7 +28,6 @@ export interface GlobalStore {
 }
 
 export interface ConstShip {
-  api_id: number
   api_name: string
   api_taik: [number, number] // 耐久 [0]=初期値, [1]=最大値
   api_houg: [number, number] // 火力
@@ -32,13 +37,18 @@ export interface ConstShip {
   api_soku: ShipSpeed // 速力
   api_luck: [number, number] // 運
   api_leng: ShipRange // 射程
+  api_maxeq: number[] // 艦載機搭載数
+}
+
+export interface ConstEquip {
+  api_name: string
 }
 
 export interface InfoBasic {
   api_level: number
 }
 
-export interface InfoShip {
+export interface InfoShipShip {
   api_ship_id: number
   api_lv: number
   api_maxhp: number
@@ -54,6 +64,17 @@ export interface InfoShip {
   api_sakuteki: [number, number] // 索敵
   api_lucky: [number, number] // 運
   api_leng: ShipRange // 射程
+}
+
+export interface InfoShip extends InfoShipShip {
+  api_slot: number[] // 装備
+  api_slot_ex: number // 補強スロット
+}
+
+export interface InfoEquip {
+  api_slotitem_id: number // 装備ID
+  api_level: number // 改修Level
+  api_alv: number // 艦載機熟練度
 }
 
 export interface InfoFleet {
