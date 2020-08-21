@@ -16,10 +16,9 @@ export interface Ship {
     los: [number, number]
     luck: [number, number]
     range: [ShipRange, ShipRange]
-    airSupermacy: number
   }
   equip: Equip[]
-  equipx?: Equip
+  equipx: Equip | null
 }
 
 export interface Equip {
