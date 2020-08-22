@@ -1,9 +1,25 @@
 import { ShipRange, ShipSpeed } from './common.types'
-import { InfoEquip, InfoShipShip } from './global-store.types'
 
-export interface ShipEquipData extends InfoShipShip {
-  api_slot: (InfoEquip | null)[]
-  api_slot_ex: InfoEquip | null
+export interface AirSupremacy {
+  basic: number
+  min: number
+  max: number
+}
+
+export interface Los {
+  x1: number
+  x2: number
+  x3: number
+  x4: number
+}
+
+export interface Equip {
+  id: number
+  iconId: number
+  name: string
+  count: number
+  mastery: number
+  enhance: number
 }
 
 export interface Ship {
@@ -22,17 +38,14 @@ export interface Ship {
     los: [number, number]
     luck: [number, number]
     range: [ShipRange, ShipRange]
-    airSupremacy: number
+    airSupremacy: AirSupremacy
   }
   equip: (Equip | null)[]
   equipx: Equip | null
 }
 
-export interface Equip {
-  id: number
-  iconId: number
-  name: string
-  count: number
-  mastery: number
-  enhance: number
+export interface Fleet {
+  airSupremacy: AirSupremacy
+  los: Los
+  ships: (Ship | null)[]
 }

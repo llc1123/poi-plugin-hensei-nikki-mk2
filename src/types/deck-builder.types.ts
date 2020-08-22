@@ -1,5 +1,7 @@
 // デッキビルダーフォーマット
 
+import { AirType } from './common.types'
+
 export interface DeckBuilderJSONObject {
   version: number // version = 4
   hqlv: number // 艦隊司令部Lv.
@@ -36,12 +38,6 @@ export interface Ship {
     i5?: Item
     ix?: Item // 補強スロット
   }
-}
-
-export enum AirType {
-  Standby = 0, // 待機 退避 休息
-  Attack = 1, // 出撃
-  Defense = 2, // 防空
 }
 
 export interface Air {

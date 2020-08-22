@@ -109,3 +109,5 @@ export interface DBShip {
     los_max: number
   }
 }
+
+export type EquipData = [InfoEquip, ConstEquip, number]

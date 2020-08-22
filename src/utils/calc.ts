@@ -1,3 +1,7 @@
+import { getSaku33, getTyku } from 'views/utils/game-utils'
+
+export { getSaku33, getTyku }
+
 export const getValueByLevel = (min: number, max: number, lv: number): number =>
   Math.floor(((max - min) * lv) / 99) + min
 
@@ -66,4 +70,8 @@ export const getEquipAerialType = (iconId: number): EquipAerialType => {
   )
     return EquipAerialType.Aerial
   return EquipAerialType.NonAerial
+}
+
+export function isPresent<T>(t: T | undefined | null | void): t is T {
+  return t !== undefined && t !== null
 }
