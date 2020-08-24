@@ -47,5 +47,6 @@ export interface Ship {
 export interface Fleet {
   airSupremacy: AirSupremacy
   los: Los
+  speed: ShipSpeed
   ships: (Ship | null)[]
 }

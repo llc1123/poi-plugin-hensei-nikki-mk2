@@ -86,11 +86,6 @@ export interface InfoFleet {
 export interface InfoAirbase {
   api_area_id: number // 所属海域ID
   api_rid: number // 航空隊ID
-  api_name: string // 航空隊名
-  api_distance: {
-    api_base: number // 基礎半径
-    api_bonus: number // 半径ボーナス
-  }
   api_action_kind: number // 行動指示　0=待機, 1=出撃, 2=防空, 3=退避, 4=休息
   api_plane_info: InfoAirBasePlane[] // 中隊情報
 }

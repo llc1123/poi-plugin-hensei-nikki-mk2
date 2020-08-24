@@ -1,31 +1,19 @@
 import React from 'react'
-import { useSelector, useStore } from 'react-redux'
-import { GlobalStore } from './types/global-store.types'
+import { useSelector } from 'react-redux'
 import {
+  allAirBaseSelector,
   allFleetsShipsSelector,
-  hqLvSelector,
-  shipInfoSelectorFactory,
-} from './utils/selector'
+} from './selectors/stateToData'
 
 const HenseiNikki: React.FC = () => {
-  const hqLv = useSelector(hqLvSelector)
-  const fleets = useSelector(allFleetsShipsSelector)
-  const store = useStore<GlobalStore>()
+  const base = useSelector(allAirBaseSelector)
+  const fleet = useSelector(allFleetsShipsSelector)
 
   return (
-    <div>
-      <div>{hqLv}</div>
-      {/* <div>{JSON.stringify(fleets)}</div> */}
-      {fleets.map((fleet) =>
-        fleet.map((ship) =>
-          ship === null ? null : (
-            <div>
-              {JSON.stringify(shipInfoSelectorFactory(ship)(store.getState()))}
-            </div>
-          ),
-        ),
-      )}
-    </div>
+    <>
+      <div>{JSON.stringify(base)}</div>
+      <div>{JSON.stringify(fleet)}</div>
+    </>
   )
 }
 

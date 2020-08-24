@@ -9,6 +9,18 @@ export interface ShipEquipData extends InfoShipShip {
 // A FLEET WITH SHIPS (NULL = EMPTY SLOT)
 export type Fleet = (ShipEquipData | null)[]
 
+export interface AirBaseSquadron {
+  mode: AirType
+  slot: (InfoEquip | null)[]
+}
+
+// FULL DESCRIPTION OF FLEETS
+export interface Deck {
+  hqlv: number
+  fleets: (Fleet | null)[]
+  airbase: AirBaseSquadron[]
+}
+
 // 速力　0 = 基地, 5 = 低速, 10 = 高速, 15 = 高速 +, 20 = 最速
 export enum ShipSpeed {
   Base = 0,
@@ -16,6 +28,7 @@ export enum ShipSpeed {
   Fast = 10,
   FastPlus = 15,
   Max = 20,
+  Unkwown = 100,
 }
 
 // 射程　0 = 無, 1 = 短, 2 = 中, 3 = 長, 4 = 超長, 5 = 超長 +
