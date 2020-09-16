@@ -33,7 +33,7 @@
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^2.5.0",
     "poi-util-transpile": "^10.3.4",
-    "prettier": "^2.1.1",
+    "prettier": "^2.1.2",
     "styled-components": "^5.1.1",
     "typescript": "3.9.7"
   },
